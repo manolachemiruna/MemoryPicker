@@ -1,4 +1,6 @@
 import React , {useState} from 'react';
+import SignUpScreen from './screens/SignUpScreen'
+import LoginScreen from './screens/LoginScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,7 +15,6 @@ import {
 
 } from 'react-native';
 
-import LoginScreen from './screens/LoginScreen';
 import {
   Header,
   LearnMoreLinks,
@@ -21,7 +22,6 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import SignUpScreen from './screens/SignUpScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 export default  function App() {
   return (
     <View>
-    <LoginScreen></LoginScreen>
+    <SignUpScreen></SignUpScreen>
     </View>
   );
 }
