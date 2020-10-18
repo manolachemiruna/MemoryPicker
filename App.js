@@ -9,9 +9,11 @@ import {
   TextInput,
   StatusBar,
   FlatList,
+  Button,
 
 } from 'react-native';
 
+import LoginScreen from './screens/LoginScreen';
 import {
   Header,
   LearnMoreLinks,
@@ -19,6 +21,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import SignUpScreen from './screens/SignUpScreen';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -38,25 +42,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-const App: () => React$Node = () => {
-const [text, setText]=useState('');
+export default  function App() {
   return (
-  <View>
-  <Text>Here we go</Text>
-  <Text>{text}</Text>
-  <Text>{text}</Text>
-  <TextInput
-    style={{
-    borderColor:'blue',
-    borderWidth: 4
-    }}
-    onChangeText={text=>setText(text)}
-    defaultValue="Type in"
-   />
-
-
+    <View>
+    <LoginScreen></LoginScreen>
     </View>
-    );
- }
-
-export default App;
+  );
+}

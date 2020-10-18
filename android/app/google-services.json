@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "155656758482",
+    "firebase_url": "https://memorypicker-5b8e0.firebaseio.com",
+    "project_id": "memorypicker-5b8e0",
+    "storage_bucket": "memorypicker-5b8e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155656758482:android:2fbf623dec68738b80b90b",
+        "android_client_info": {
+          "package_name": "com.awesome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155656758482-r4i91gnp30l7s7l9kh6oeab32sgd5nma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1JQ58W_ItooGhajxP6cjNv0alEilVhCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155656758482-r4i91gnp30l7s7l9kh6oeab32sgd5nma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
