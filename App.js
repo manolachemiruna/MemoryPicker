@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 export default  function App() {
   return (
     <View>
-    <SignUpScreen></SignUpScreen>
+    <LoginScreen></LoginScreen>
     </View>
   );
 }

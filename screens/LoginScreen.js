@@ -1,6 +1,7 @@
 import React , {useState} from 'react';
 import Input from '../components/Input';
 import CustomButton from '../components/CustomButton';
+import Login from '../auth/Login'
 import {
   SafeAreaView,
   StyleSheet,
@@ -46,12 +47,20 @@ const styles = StyleSheet.create({
   });
 
 export default function LoginScreen() {
+
+  const [email,setEmail]=useState('');
+   const [password,setPassword]=useState('');
+
+  function loginUser()
+  {
+    Login.login(email,password);
+  }
   return (
     <View>
     <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
-    <Input style={styles.Input} placeholder='Email' required></Input>
-    <Input  style={styles.Input} placeholder='Password'></Input>
-    <CustomButton title="Login"></CustomButton>
+    <Input onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email' required></Input>
+    <Input onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password'></Input>
+    <CustomButton title="Login" onPress={loginUser}></CustomButton>
     </View>
   );
 }

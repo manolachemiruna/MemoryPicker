@@ -1,19 +1,29 @@
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { Component } from 'react';
 
-    export function Register(email,password){
+const users = firestore().collection('users');
+
+export default class Register extends Component{
+
+   constructor(){
+     super();
+   }
+
+    static register(email,password){
     
-        console.log(email,password);
-
-        auth.createUserWithEmailAndPassword(email,password)
+        auth().createUserWithEmailAndPassword(email,password)
           .then( userCredential => {
-            console.log(userCredential);
+            console.log(userCredential.user.email);
     
-            return this.db.doc(`users/${userCredential.user.uid}`).set({
-                email: userCredential.email,});
-          })
+            return users.add({
+                email: userCredential.user.email});
+          }) 
 
           .catch( error => {
             console.log("eroare la creare user");
             console.log(error);
           });
 }
+}
+

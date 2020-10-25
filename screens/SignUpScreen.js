@@ -1,7 +1,8 @@
 import React , {useState} from 'react';
 import Input from '../components/Input'
 import CustomButton from '../components/CustomButton'
-import {Register} from '../auth/Register';
+import Register from '../auth/Register';
+
 import {
   
   StyleSheet,
@@ -57,12 +58,8 @@ export default function SignUpScreen() {
    const [confirmPassword,setConfirmPassword]=useState('');
 
    function registerUser() {
-    
-    Register(email, password)
-      .then(
-        () => console.log("Register")
-      );
-      console.error();
+  
+      Register.register(email,password);
   }
 
     return (
