@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         textDecorationStyle:'solid',
         fontSize: 30,
         fontWeight: "bold",
+        marginBottom:10,
     },
     textView:
     {
