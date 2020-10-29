@@ -41,7 +41,7 @@ const CustomButton = ({ onPress, title }) => (
       color: "#fff",
       fontWeight: "bold",
       alignSelf: "center",
-      textTransform: "uppercase"
+      fontStyle:'italic',
     }
   });
 export default CustomButton;

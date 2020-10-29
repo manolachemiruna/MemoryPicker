@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
-import Input from '../components/Input';
 import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
+import {Icon,Input} from 'react-native-elements';
 import {
   SafeAreaView,
   StyleSheet,
@@ -28,16 +28,18 @@ const styles = StyleSheet.create({
         fontStyle:'italic',
         textDecorationStyle:'solid',
         fontSize: 30,
+        color:"#009688",
         fontWeight: "bold",
         marginBottom:10,
     },
     textView:
     {
-      backgroundColor:'rgba(226, 231, 226, 0.1);',
-      opacity:0.7,
+      backgroundColor: '#FFFFFF50',
+      opacity:0.5,
       borderRadius:20,
-      marginBottom:50,
+      marginBottom:60,
       marginTop:20,
+      color:'black',
     },
     view:
     {
@@ -46,21 +48,32 @@ const styles = StyleSheet.create({
    
   });
 
-export default function LoginScreen() {
+  const LoginScreen=props =>  {
 
   const [email,setEmail]=useState('');
    const [password,setPassword]=useState('');
 
   function loginUser()
   {
-    Login.login(email,password);
+    Login.login(props,email,password);
   }
   return (
     <View>
     <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
-    <Input onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email' required></Input>
-    <Input onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password'></Input>
+    <View>
+    <Input
+    leftIcon={
+      <Icon raised name='email' type='entypo' color='grey' size={20}/>
+    }
+     onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email*' required></Input>
+    <Input
+    leftIcon={
+      <Icon raised name='locked' type='fontisto' color='grey' size={20}/>
+    }
+     onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password*'></Input>
     <CustomButton title="Login" onPress={loginUser}></CustomButton>
+    </View>
     </View>
   );
 }
+export default LoginScreen;

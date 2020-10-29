@@ -1,6 +1,7 @@
 import React , {useState} from 'react';
 import SignUpScreen from './screens/SignUpScreen'
 import LoginScreen from './screens/LoginScreen';
+import BottomTabs from './navigation/Navigator'
 import {
   SafeAreaView,
   StyleSheet,
@@ -44,8 +45,6 @@ const styles = StyleSheet.create({
 });
 export default  function App() {
   return (
-    <View>
-    <LoginScreen></LoginScreen>
-    </View>
+    <BottomTabs/>
   );
 }

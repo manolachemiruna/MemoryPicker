@@ -4,21 +4,22 @@ import { Component } from 'react';
 
 const users = firestore().collection('users');
 
-export default class Register extends Component{
+export default class Login extends Component{
 
    constructor(){
      super();
    }
 
-    static login(email,password){
+    static login(props,email,password){
     
         auth().signInWithEmailAndPassword(email, password)
         .catch(error => {
-          this.eventAuthError.next(error);
+          console.log(error);
         })
         .then(userCredential => {
           if (userCredential) {
             console.log("You are logged in");
+            props.navigation.navigate('Home');
           }
         });
   
