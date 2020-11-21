@@ -6,19 +6,26 @@ import {
 
 } from 'react-native';
 
-const ErrorMessage = ({error}) => (
-
-      <Text style={styles.appText}>{error}</Text>
-  );
+const ErrorMessage = ({error}) =>{
+      
+       if(error)
+       return <Text style={styles.appText}>{error}</Text>
+       else 
+       return <Text></Text>
+}
   
   const styles = StyleSheet.create({
     
     appText: {
+      marginTop:80,
+      borderRadius:10,
       fontSize: 16,
-      color: "red",
+      color: "#2F4F4F",
+      fontStyle:'italic',
+      backgroundColor:'#FFB6C1',
       fontWeight: "bold",
-      alignSelf: "center",
-      textTransform: "uppercase"
+      textAlign:"center",
+      paddingVertical: 20,
     }
   });
 export default ErrorMessage;

@@ -31,7 +31,7 @@ const CustomButton = ({ onPress, title }) => (
       borderRadius: 20,
       paddingVertical: 10,
       paddingHorizontal: 12,
-      marginTop:50,
+      marginTop:40,
       marginRight:100,
       marginLeft:100,
       

@@ -1,5 +1,4 @@
 import React , {useState} from 'react';
-import Input from '../components/Input'
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
 import ErrorMessage from '../components/ErrorMessage';
@@ -43,11 +42,18 @@ const styles = StyleSheet.create({
       alignContent:"center",
   },
   });
-export default function SignUpScreen() {
-  
+
+  const ProfileScreen=props => {
+
+  function navig()
+  {
+    props.navigation.navigate('FindPeople');
+  }
     return (
         <View>
         <Text>Profile Page</Text>
+        <CustomButton title="search people" onPress={navig}></CustomButton>
         </View>
       );
-}
+  }
+export default ProfileScreen;

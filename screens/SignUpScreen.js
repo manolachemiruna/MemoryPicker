@@ -3,6 +3,7 @@ import Input from '../components/Input'
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
 import ErrorMessage from '../components/ErrorMessage';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   
   StyleSheet,
@@ -11,6 +12,7 @@ import {
   When,
   Choose,
 } from 'react-native';
+
 
 
 const styles = StyleSheet.create({
@@ -48,6 +50,8 @@ export default function SignUpScreen() {
    const [email,setEmail]=useState('');
    const [password,setPassword]=useState('');
    const [confirmPassword,setConfirmPassword]=useState('');
+   const [message,setMessage]=useState('');
+
    const error=false;
 
    const verify=()=>{
@@ -59,6 +63,8 @@ export default function SignUpScreen() {
    function registerUser() {
   
       Register.register(email,password);
+      AsyncStorage.getItem('message').then(value=>setMessage(value));
+      console.log(message);
   }
 
 
@@ -67,9 +73,14 @@ export default function SignUpScreen() {
         <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
         <View>
         <Input onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email*'></Input>
-        <Input onChangeText={password => setPassword(password)}  style={styles.Input} placeholder='Password*'></Input>
-        <Input onChangeText={confirmPassword => setConfirmPassword(confirmPassword)} style={styles.Input} placeholder='Confirm Password*'></Input>
+        <Input onChangeText={password => setPassword(password)}  style={styles.Input} placeholder='Password*'
+        secureTextEntry={true} >
+        </Input>
+        <Input onChangeText={confirmPassword => setConfirmPassword(confirmPassword)} style={styles.Input} placeholder='Confirm Password*'
+        secureTextEntry={true} >
+        </Input>
         <CustomButton title="Register" onPress={registerUser}></CustomButton>
+        <ErrorMessage error={message}></ErrorMessage>
         </View>
         </View>
       );

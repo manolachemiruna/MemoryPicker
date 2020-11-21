@@ -8,6 +8,11 @@ import {Icon} from 'react-native-elements';
 import React , {useState} from 'react';
 import { color } from 'react-native-reanimated';
 import ProfileScreen from '../screens/ProfileScreen';
+import FindPeople from '../screens/FindPeople';
+import AsyncStorage from '@react-native-community/async-storage';
+import Logout from '../auth/Logout';
+
+
 const Navigator=createStackNavigator(
     {
     
@@ -26,13 +31,17 @@ const Navigator=createStackNavigator(
         screen:ProfileScreen,
         navigationOptions: () => (
           {
-            headerTitleStyle:{alignSelf:'center'},
+            headerTitleStyle:{alignSelf:'auto'},
             title:'Home',
             headerStyle:{backgroundColor:'blackalmond'},
           }
         )
+      },
+      FindPeople:
+      {
+        screen:FindPeople,
       }
-      ,
+      
     },
     
 );
@@ -67,6 +76,7 @@ const BottomTabs=createBottomTabNavigator(
     }),
     }
   },
+  
   {
     tabBarOptions:{
       activeTintColor:'black',

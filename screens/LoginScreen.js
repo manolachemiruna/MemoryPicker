@@ -2,6 +2,7 @@ import React , {useState} from 'react';
 import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
 import {Icon,Input} from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,6 +16,7 @@ import {
   Button,
 
 } from 'react-native';
+import ErrorMessage from '../components/ErrorMessage';
 
 
 const styles = StyleSheet.create({
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF50',
       opacity:0.5,
       borderRadius:20,
-      marginBottom:60,
+      marginBottom:20,
       marginTop:20,
       color:'black',
     },
@@ -51,28 +53,36 @@ const styles = StyleSheet.create({
   const LoginScreen=props =>  {
 
   const [email,setEmail]=useState('');
-   const [password,setPassword]=useState('');
+  const [password,setPassword]=useState('');
+  const [message,setMessage]=useState('');
 
   function loginUser()
   {
     Login.login(props,email,password);
+    setTimeout(() =>{ AsyncStorage.getItem("message").then((value) => { setMessage(value);
+      console.log(message);
+      }).done();}, 1000);
+   
   }
+
   return (
     <View>
     <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
     <View>
     <Input
     leftIcon={
-      <Icon raised name='email' type='entypo' color='grey' size={20}/>
+      <Icon raised name='email' type='fontisto' color='grey' size={20}/>
     }
      onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email*' required></Input>
     <Input
     leftIcon={
       <Icon raised name='locked' type='fontisto' color='grey' size={20}/>
     }
+    secureTextEntry={true} 
      onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password*'></Input>
     <CustomButton title="Login" onPress={loginUser}></CustomButton>
-    </View>
+    <ErrorMessage error={message}></ErrorMessage>
+    </View> 
     </View>
   );
 }
