@@ -42,11 +42,13 @@ const styles = StyleSheet.create({
   },
   search:
   {
-      marginVertical:10,
+      flex:0.95,
       borderBottomColor:'black',
       borderBottomWidth:1,
-      marginLeft:5,
-      marginRight:5,
+  },
+  view:{
+    flexDirection: 'row',
+    alignContent:'stretch',
   },
   });
 export default function FindPeople() {
@@ -55,6 +57,7 @@ export default function FindPeople() {
     const [email,setEmail]=useState('');
     const [show,setShow]=useState('');
     const [message,setMessage]=useState('');
+    const [u,setU]=useState([]);
     
      function find(){
         
@@ -63,25 +66,28 @@ export default function FindPeople() {
       console.log("email"+e);
             firestore()
             .collection('users')
-            .where('email', '==',e)
             .get()
             .then(snapshot => {
             snapshot
-                .forEach(doc => {    
-                users.push(doc.data());
+                .forEach(doc => {   
+                  users.push(doc.data());
                 });
               setShow('ceva');
-              console.log(users);
+              setU(users.filter(user => user.email.includes(e)));
+              console.log(u);
               setMessage('');
+              setUsers([]);
               if(email=='')
               {
                 setShow('');
                 setMessage('');
+                setU([]);
                 setUsers([]);
               }
-              if(users.length==0)
+              if(u.length==0)
               {
                 setMessage('There is no match for your search');
+                setUsers([]);
               }
             });
         
@@ -89,18 +95,16 @@ export default function FindPeople() {
   
     return (
       <ScrollView>
-        <View>
+        <View style={styles.view}>
+        <Icon raised name='search' type='fontisto' color='black' size={15}/>
         <DelayInput
-        leftIcon={
-            <Icon raised name='search' type='fontisto' color='black' size={20}/>
-          }
          onChangeText={email => {setEmail(email);find()}} placeholder="Search*"
          style={styles.search}
          delayTimeout={600}
          ></DelayInput>
         </View>
 
-        <CustomCard show={show} name='People that can match your search' list={users} message={message} ></CustomCard>
+        <CustomCard show={show} name='People that can match your search' list={u} message={message} ></CustomCard>
       </ScrollView>
       );
 }
