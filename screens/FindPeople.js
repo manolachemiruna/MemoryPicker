@@ -1,8 +1,8 @@
 import React , {useState} from 'react';
-import CustomButton from '../components/CustomButton';
 import {Icon,Input,ListItem} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
-import Find from '../functions/Find'
+import CustomCard from '../components/CustomCard';
+import DelayInput from "react-native-debounce-input";
 import {
   
   StyleSheet,
@@ -12,6 +12,7 @@ import {
   Choose,
   FlatList,
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const styles = StyleSheet.create({
@@ -41,59 +42,65 @@ const styles = StyleSheet.create({
   },
   search:
   {
-      marginVertical:20,
+      marginVertical:10,
+      borderBottomColor:'black',
+      borderBottomWidth:1,
+      marginLeft:5,
+      marginRight:5,
   },
   });
 export default function FindPeople() {
 
-    const [user,setUser]=useState([]);
-    const users=[];
-    let regex='^{user}.*'
+    const [users,setUsers]=useState([]);
+    const [email,setEmail]=useState('');
+    const [show,setShow]=useState('');
+    const [message,setMessage]=useState('');
     
      function find(){
         
-          
+      e = email.replace(/\s/g, '');
+      const regex = new RegExp("^" + e + ".*");
+      console.log("email"+e);
             firestore()
             .collection('users')
+            .where('email', '==',e)
             .get()
             .then(snapshot => {
             snapshot
-                .docs
                 .forEach(doc => {    
-                setUser(doc.data().email);
-                users.push({id:doc.data().email,email:doc.data().email});
-                console.log(users);
+                users.push(doc.data());
                 });
+              setShow('ceva');
+              console.log(users);
+              setMessage('');
+              if(email=='')
+              {
+                setShow('');
+                setMessage('');
+                setUsers([]);
+              }
+              if(users.length==0)
+              {
+                setMessage('There is no match for your search');
+              }
             });
         
         }
-
-        const Item = ({ email }) => (
-            <View>
-              <Text>{email}</Text>
-            </View>
-          );
-        
-        const renderItem = ({ item }) => (
-            <Item email={item.email} />
-          );
   
     return (
+      <ScrollView>
         <View>
-        <Input
+        <DelayInput
         leftIcon={
             <Icon raised name='search' type='fontisto' color='black' size={20}/>
           }
-         onChangeText={user => setUser(user)} placeholder="Search*"
+         onChangeText={email => {setEmail(email);find()}} placeholder="Search*"
          style={styles.search}
-         ></Input>
-        <CustomButton title="show" onPress={find}></CustomButton>
-        <FlatList
-        data={users}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-
+         delayTimeout={600}
+         ></DelayInput>
         </View>
+
+        <CustomCard show={show} name='People that can match your search' list={users} message={message} ></CustomCard>
+      </ScrollView>
       );
 }
