@@ -1,14 +1,15 @@
 import React from 'react';
 import {
+
   StyleSheet,
   Text,
 
 } from 'react-native';
 
-const ErrorMessage = ({error}) =>{
+const SuccessMessage = ({message}) =>{
       
-       if(error)
-       return <Text style={styles.appText}>{error}</Text>
+       if(message)
+       return <Text style={styles.appText}>{message}</Text>
        else 
        return <Text></Text>
 }
@@ -16,15 +17,15 @@ const ErrorMessage = ({error}) =>{
   const styles = StyleSheet.create({
     
     appText: {
-      marginTop:80,
+      marginTop:50,
       borderRadius:10,
       fontSize: 16,
-      color: "#2F4F4F",
+      color: 'rgba(46, 49, 49, 1)',
       fontStyle:'italic',
-      backgroundColor:'#FFB6C1',
+      backgroundColor:'rgba(200, 247, 197, 1)',
       fontWeight: "bold",
       textAlign:"center",
       paddingVertical: 20,
     }
   });
-export default ErrorMessage;
+export default SuccessMessage;

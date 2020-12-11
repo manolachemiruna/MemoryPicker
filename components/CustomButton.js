@@ -1,15 +1,7 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
-  View,
   Text,
-  Image,
-  TextInput,
-  StatusBar,
-  FlatList,
-  Button,
   TouchableOpacity,
 
 } from 'react-native';
@@ -31,7 +23,7 @@ const CustomButton = ({ onPress, title }) => (
       borderRadius: 20,
       paddingVertical: 10,
       paddingHorizontal: 12,
-      marginTop:40,
+      marginTop:30,
       marginRight:100,
       marginLeft:100,
       

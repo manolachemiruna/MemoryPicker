@@ -3,27 +3,22 @@ import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
 import {Icon,Input} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
+import ErrorMessage from '../components/ErrorMessage';
 import {
-  SafeAreaView,
+
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  Image,
-  TextInput,
-  StatusBar,
-  FlatList,
-  Button,
-
+ 
 } from 'react-native';
-import ErrorMessage from '../components/ErrorMessage';
+
 
 
 const styles = StyleSheet.create({
     Input: {
-      padding:15,
+      padding:10,
       borderRadius:8,
-      marginVertical:8,
+      marginVertical:5,
     },
     text:{
         textAlign:"center",
@@ -40,7 +35,7 @@ const styles = StyleSheet.create({
       opacity:0.5,
       borderRadius:20,
       marginBottom:20,
-      marginTop:20,
+      marginTop:25,
       color:'black',
     },
     view:

@@ -1,14 +1,11 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import CustomButton from '../components/CustomButton'
-import Register from '../auth/Register';
-import ErrorMessage from '../components/ErrorMessage';
+
 import {
   
   StyleSheet,
   View,
   Text,
-  When,
-  Choose,
 } from 'react-native';
 
 

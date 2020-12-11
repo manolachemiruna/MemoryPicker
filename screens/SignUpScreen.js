@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
-import Input from '../components/Input'
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
+import {Icon,Input} from 'react-native-elements';
 import ErrorMessage from '../components/ErrorMessage';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
@@ -9,17 +9,16 @@ import {
   StyleSheet,
   View,
   Text,
-  When,
-  Choose,
 } from 'react-native';
+import SuccessMessage from '../components/SuccessMessage';
 
 
 
 const styles = StyleSheet.create({
     Input: {
-      padding:15,
+      padding:5,
       borderRadius:8,
-      marginVertical:8,
+      marginVertical:6,
       borderColor:'black',
       borderStyle:'solid',
     },
@@ -51,20 +50,20 @@ export default function SignUpScreen() {
    const [password,setPassword]=useState('');
    const [confirmPassword,setConfirmPassword]=useState('');
    const [message,setMessage]=useState('');
+   const [passwordNotMatch,setPasswordNotMatch]=useState('');
+   const [messageSuccess,setMessageSuccess]=useState('');
 
-   const error=false;
-
-   const verify=()=>{
-
-     if(password!=confirmPassword)
-        error=true;
-     else error=false;};
+  
 
    function registerUser() {
   
-      Register.register(email,password);
-      AsyncStorage.getItem('message').then(value=>setMessage(value));
-      console.log(message);
+    if(password == confirmPassword)
+      {
+        Register.register(email,password);
+        AsyncStorage.getItem('message').then(value=>setMessage(value));
+        console.log(message);
+      }
+    else setPasswordNotMatch('Your password do not match,please try again!');
   }
 
 
@@ -80,6 +79,8 @@ export default function SignUpScreen() {
         secureTextEntry={true} >
         </Input>
         <CustomButton title="Register" onPress={registerUser}></CustomButton>
+        <ErrorMessage error={passwordNotMatch}></ErrorMessage>
+        <SuccessMessage message={message}></SuccessMessage>
         <ErrorMessage error={message}></ErrorMessage>
         </View>
         </View>

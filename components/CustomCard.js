@@ -1,7 +1,6 @@
-import React , {useState} from 'react';
-import { Card, ListItem, Button, Icon, Header,Input,Badge } from 'react-native-elements';
+import React from 'react';
+import { Card, ListItem, Icon} from 'react-native-elements';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,

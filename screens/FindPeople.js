@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import {Icon,Input,ListItem} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import CustomCard from '../components/CustomCard';
 import DelayInput from "react-native-debounce-input";
@@ -7,10 +7,6 @@ import {
   
   StyleSheet,
   View,
-  Text,
-  When,
-  Choose,
-  FlatList,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
