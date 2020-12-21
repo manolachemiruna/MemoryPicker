@@ -21,7 +21,7 @@ const Navigator=createStackNavigator(
         navigationOptions: () => (
           {
             headerTitleStyle:{alignSelf:'center'},
-            title:'Login',
+            headerShown:false,
             headerStyle:{backgroundColor:'blackalmond'},
           }
         )
@@ -32,7 +32,7 @@ const Navigator=createStackNavigator(
         navigationOptions: () => (
           {
             headerTitleStyle:{alignSelf:'auto'},
-            title:'Home',
+            headerShown:false,
             headerStyle:{backgroundColor:'blackalmond'},
           }
         )

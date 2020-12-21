@@ -4,6 +4,8 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
 import ChangeProfileType from '../functions/ChangeProfileType.js';
 import SuccessMessage from '../components/SuccessMessage';
+import Logout from '../auth/Logout';
+import { Card, ListItem, Button, Icon, Header,Input } from 'react-native-elements';
 const users = firestore().collection('users');
 import {
   
@@ -48,9 +50,15 @@ const styles = StyleSheet.create({
   {
     alignItems: "center",
     marginRight:270,
-    marginTop:40,
+    marginTop:50,
     transform: [{ scaleX: 2.7 }, { scaleY: 2.5 }],
     
+  },
+  picture:
+  {
+    alignSelf:"center",
+    marginBottom:50,
+    marginTop:70,
   }
   });
 
@@ -66,6 +74,7 @@ const styles = StyleSheet.create({
       super(props);
       this.navig = this.navig.bind(this);
       this.change=this.change.bind(this);
+      this.logout=this.logout.bind(this);
       this.state = {
         data: ' '
     }
@@ -98,6 +107,11 @@ const styles = StyleSheet.create({
            }));
        });
  }
+
+  logout()
+  {
+    Logout.logout(this.props);
+  }
    navig()
   {
     this.props.navigation.navigate('FindPeople');
@@ -116,8 +130,13 @@ const styles = StyleSheet.create({
 render(){
     return (
         <View>
-        <Text>Profile Page</Text>
-        <CustomButton title="search people" onPress={this.navig}></CustomButton>
+          <Header
+          backgroundColor='rgba(123, 239, 178, 1)'
+          leftComponent={{icon: 'person-search',type:'material-icons',color: '#fff', accessibilityRole:'button',onPress:this.navig }}
+          centerComponent={{ text: 'Memory Picker', style: { color: '#fff',fontStyle:'italic',fontSize:18, } }}
+          rightComponent={{icon:'logout',type:'ant-design',color: '#fff',accessibilityRole:'button',onPress:this.logout}}
+          />
+        <Text style={styles.picture}>Here will be a profile picture!</Text>
         <SuccessMessage message={this.state.data}></SuccessMessage> 
         <Switch
         style={styles.switch}

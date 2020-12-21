@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
-import {Icon,Input} from 'react-native-elements';
+import {Icon,Input,Header} from 'react-native-elements';
 import ErrorMessage from '../components/ErrorMessage';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
@@ -69,7 +69,13 @@ export default function SignUpScreen() {
 
     return (
         <View>
-        <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
+        <Header
+          backgroundColor='rgba(123, 239, 178, 1)'
+          size='20'
+          leftComponent={{ icon: 'picture',type:'fontisto',color: '#fff' }}
+          centerComponent={{ text: 'Memory Picker', style: { color: '#fff',fontStyle:'italic',fontSize:18, } }}
+          />
+        <View style={styles.textView}></View>
         <View>
         <Input onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email*'></Input>
         <Input onChangeText={password => setPassword(password)}  style={styles.Input} placeholder='Password*'

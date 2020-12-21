@@ -12,6 +12,7 @@ export default class Logout extends Component{
     
     console.log("Logout");
      auth().signOut();
+     props.navigation.navigate({routeName:'Login'});
 }
 
 }

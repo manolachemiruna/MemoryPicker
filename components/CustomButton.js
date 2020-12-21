@@ -19,11 +19,11 @@ const CustomButton = ({ onPress, title }) => (
     
     appButtonContainer: {
       elevation: 8,
-      backgroundColor: "#009688",
+      backgroundColor: "rgba(123, 239, 178, 1)",
       borderRadius: 20,
       paddingVertical: 10,
       paddingHorizontal: 12,
-      marginTop:30,
+      marginTop:40,
       marginRight:100,
       marginLeft:100,
       

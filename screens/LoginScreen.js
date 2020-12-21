@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
-import {Icon,Input} from 'react-native-elements';
+import {Icon,Input,Header} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import ErrorMessage from '../components/ErrorMessage';
 import {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF50',
       opacity:0.5,
       borderRadius:20,
-      marginBottom:20,
+      marginBottom:50,
       marginTop:25,
       color:'black',
     },
@@ -62,7 +62,13 @@ const styles = StyleSheet.create({
 
   return (
     <View>
-    <View style={styles.textView}><Text style={styles.text}>Memory Picker</Text></View>
+    <Header
+          backgroundColor='rgba(123, 239, 178, 1)'
+          size='20'
+          leftComponent={{ icon: 'picture',type:'fontisto',color: '#fff' }}
+          centerComponent={{ text: 'Memory Picker', style: { color: '#fff',fontStyle:'italic',fontSize:18, } }}
+          />
+    <View style={styles.textView}></View>
     <View>
     <Input
     leftIcon={
