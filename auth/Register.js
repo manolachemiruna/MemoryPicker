@@ -21,7 +21,8 @@ export default class Register extends Component{
             AsyncStorage.setItem('message','Your account has been created!');
     
             return users.add({
-                email: userCredential.user.email});
+                email: userCredential.user.email,
+                profile:'private'});
           }) 
 
           .catch( error => {

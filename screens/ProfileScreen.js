@@ -1,12 +1,18 @@
-import React  from 'react';
+import React , {useState} from 'react';
 import CustomButton from '../components/CustomButton'
-
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-community/async-storage';
+import ChangeProfileType from '../functions/ChangeProfileType.js';
+import SuccessMessage from '../components/SuccessMessage';
+const users = firestore().collection('users');
 import {
   
   StyleSheet,
   View,
   Text,
+  Switch,
 } from 'react-native';
+
 
 
 const styles = StyleSheet.create({
@@ -38,19 +44,91 @@ const styles = StyleSheet.create({
   {
       alignContent:"center",
   },
+  switch:
+  {
+    alignItems: "center",
+    marginRight:270,
+    marginTop:40,
+    transform: [{ scaleX: 2.7 }, { scaleY: 2.5 }],
+    
+  }
   });
 
-  const ProfileScreen=props => {
+  let profile;
+  let email;
+  let isEnabled;
+  let profileBefore;
+  let message;
+  class ProfileScreen extends React.Component {
 
-  function navig()
-  {
-    props.navigation.navigate('FindPeople');
+
+    constructor(props) {
+      super(props);
+      this.navig = this.navig.bind(this);
+      this.change=this.change.bind(this);
+      this.state = {
+        data: ' '
+    }
+    }
+
+    UNSAFE_componentWillMount(){
+
+     console.log("willMount");
   }
+
+  
+  componentDidMount(){
+
+    AsyncStorage.getItem('user').then( user =>
+       {
+         email=user;
+         console.log(email);
+         firestore()
+         .collection('users')
+         .where('email', '==', email)
+         .get()
+         .then(snapshot => snapshot.forEach(doc => {
+             const data = doc.data();
+             profileBefore=data.profile;
+             if(profileBefore=='public')isEnabled=true;
+             else isEnabled=false;
+             this.setState({
+              data: 'Your profile is '+profileBefore+'!'
+            })
+           }));
+       });
+ }
+   navig()
+  {
+    this.props.navigation.navigate('FindPeople');
+  }
+
+  change(){
+    
+          console.log(email);
+          console.log(profileBefore);
+          if(profileBefore=='public')isEnabled=true;
+          else isEnabled=false;
+          console.log(isEnabled);
+          ChangeProfileType.change(email,!isEnabled);
+          this.componentDidMount();
+}
+render(){
     return (
         <View>
         <Text>Profile Page</Text>
-        <CustomButton title="search people" onPress={navig}></CustomButton>
+        <CustomButton title="search people" onPress={this.navig}></CustomButton>
+        <SuccessMessage message={this.state.data}></SuccessMessage> 
+        <Switch
+        style={styles.switch}
+        trackColor={{ false: "gray", true: "rgba(0, 177, 106, 1)" }}
+        thumbColor={isEnabled ? "green" : "black"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={this.change}
+        value={isEnabled}
+      /> 
         </View>
       );
   }
+}
 export default ProfileScreen;
