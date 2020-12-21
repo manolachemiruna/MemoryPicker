@@ -1,19 +1,17 @@
 import auth from '@react-native-firebase/auth';
-import { Component } from 'react';
+import {Component} from 'react';
 
 
-export default class Logout extends Component{
+export default class Logout extends Component {
 
-   constructor(){
-     super();
-   }
+    constructor() {
+        super();
+    }
 
-    static logout(props){
-    
-    console.log("Logout");
-     auth().signOut();
-     props.navigation.navigate({routeName:'Login'});
-}
-
+    static logout(props) {
+        console.log("Logout");
+        auth().signOut();
+        props.navigation.navigate({routeName: 'Login'});
+    }
 }
 

@@ -1,90 +1,107 @@
-import React , {useState} from 'react';
+import React, {useState} from 'react';
 import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
-import {Icon,Input,Header} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import ErrorMessage from '../components/ErrorMessage';
 import {
-
-  StyleSheet,
-  View,
-  Text,
- 
+    StyleSheet,
+    View,
+    TextInput,
+    Text
 } from 'react-native';
-
 
 
 const styles = StyleSheet.create({
     Input: {
-      padding:10,
-      borderRadius:8,
-      marginVertical:5,
+        margin: 15,
+        height: 50,
+        borderColor: '#888888',
+        borderWidth: 2.5,
+        borderRadius: 15,
+        backgroundColor: 'rgba(196,196,196,0.4)',
+        color: '#000',
+        fontFamily: 'OpenSans-Bold',
     },
-    text:{
-        textAlign:"center",
-        fontStyle:'italic',
-        textDecorationStyle:'solid',
+    text: {
+        textAlign: "center",
+        fontStyle: 'italic',
+        textDecorationStyle: 'solid',
         fontSize: 30,
-        color:"#009688",
+        color: "#009688",
         fontWeight: "bold",
-        marginBottom:10,
+        marginBottom: 10,
     },
     textView:
-    {
-      backgroundColor: '#FFFFFF50',
-      opacity:0.5,
-      borderRadius:20,
-      marginBottom:50,
-      marginTop:25,
-      color:'black',
-    },
+        {
+            backgroundColor: '#FFFFFF50',
+            opacity: 0.5,
+            borderRadius: 20,
+            marginBottom: 50,
+            marginTop: 25,
+            color: 'black',
+            justifyContent: 'center'
+        },
     view:
-    {
-        alignContent:"center",
+        {
+            alignContent: "center",
+        },
+    container: {
+        borderRadius: 20,
+        opacity: 0.8,
+        borderColor: 'black',
+        backgroundColor: '#ECE3E3',
+        marginLeft: 15,
+        marginRight: 15,
     },
-   
-  });
-
-  const LoginScreen=props =>  {
-
-  const [email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
-  const [message,setMessage]=useState('');
-
-  function loginUser()
-  {
-    Login.login(props,email,password);
-    setTimeout(() =>{ AsyncStorage.getItem("message").then((value) => { setMessage(value);
-      console.log(message);
-      }).done();}, 1000);
-   
-  }
-
-  return (
-    <View>
-    <Header
-          backgroundColor='rgba(123, 239, 178, 1)'
-          size='20'
-          leftComponent={{ icon: 'picture',type:'fontisto',color: '#fff' }}
-          centerComponent={{ text: 'Memory Picker', style: { color: '#fff',fontStyle:'italic',fontSize:18, } }}
-          />
-    <View style={styles.textView}></View>
-    <View>
-    <Input
-    leftIcon={
-      <Icon raised name='email' type='fontisto' color='grey' size={20}/>
+    bigTitle: {
+        textAlign: 'center',
+        fontSize: 32,
+        fontWeight: 'bold',
+        fontFamily: 'Italic',
+        color: '#00FF85'
     }
-     onChangeText={email => setEmail(email)}  style={styles.Input} placeholder='Email*' required></Input>
-    <Input
-    leftIcon={
-      <Icon raised name='locked' type='fontisto' color='grey' size={20}/>
+});
+
+const LoginScreen = props => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+
+    function loginUser() {
+        Login.login(props, email, password);
+        setTimeout(() => {
+            AsyncStorage.getItem("message").then((value) => {
+                setMessage(value);
+                console.log(message);
+            }).done();
+        }, 1000);
+
     }
-    secureTextEntry={true} 
-     onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password*'></Input>
-    <CustomButton title="Login" onPress={loginUser}></CustomButton>
-    <ErrorMessage error={message}></ErrorMessage>
-    </View> 
-    </View>
-  );
+
+    return (
+        <View>
+            <View style={styles.textView}>
+                <Text style={styles.bigTitle}>
+                   Memory Picker
+                </Text>
+            </View>
+            <View style={styles.container}>
+                <TextInput
+                    placeholderTextColor="black"
+                    allowFontScaling={true}
+                    theme={{ fonts: { bold: 'Apple Color Emoji'} }}
+                    onChangeText={email => setEmail(email)} style={styles.Input} placeholder='Email*' required/>
+                <TextInput
+                    placeholderTextColor="black"
+                    secureTextEntry={true}
+                    allowFontScaling={true}
+                    theme={{ fonts: { bold: 'Apple Color Emoji'}}}
+                    onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password*'/>
+                <CustomButton title="Login" onPress={loginUser}/>
+                <ErrorMessage error={message}/>
+            </View>
+        </View>
+    );
 }
 export default LoginScreen;
