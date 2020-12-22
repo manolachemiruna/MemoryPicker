@@ -8,15 +8,15 @@ const users = firestore().collection('users');
 
 export default class ForgotPasswordFunction extends Component {
 
-    static forgotPassword(email) {
+    static forgotPassword(email, messageHandler) {
         auth().sendPasswordResetEmail(email).then(
             () => {
-                AsyncStorage.setItem('emailMessage', "Email successfully sent!");
+                messageHandler("Email successfully sent!");
                 console.log("Email sent");
             },
             error => {
                 console.log(error);
-                AsyncStorage.setItem('emailMessage', "An error occured while trying to send you the email.Please try again later!");
+                messageHandler("An error occured while trying to send you the email.Please try again later!");
             }
         );
     }

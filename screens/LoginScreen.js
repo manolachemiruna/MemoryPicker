@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
     StyleSheet,
     View,
-    Text, Alert
+    Text, Alert, ImageBackground
 } from 'react-native';
 
 import CustomButton from '../components/CustomButton';
@@ -11,6 +11,11 @@ import CoolInput from '../components/CoolInput';
 
 
 const styles = StyleSheet.create({
+        imgBackground: {
+            width: '100%',
+            height: '100%',
+            flex: 1
+        },
         Input: {
             margin: 15,
             height: 50,
@@ -117,49 +122,53 @@ const LoginScreen = props => {
     };
 
     return (
-        <View style={{flex: 1}}>
-            <View style={{flex: 0.6}}>
-                <View style={styles.textView}>
-                    <Text style={styles.bigTitle}>
-                        Memory Picker
-                    </Text>
-                </View>
-                <View style={styles.container}>
-                    <CoolInput
-                        placeholderTextColor="black"
-                        allowFontScaling={true}
-                        onChangeText={email => setEmail(email)} placeholder='Email*' required/>
-                    <CoolInput
-                        placeholderTextColor="black"
-                        secureTextEntry={true}
-                        allowFontScaling={true}
-                        onChangeText={password => setPassword(password)} placeholder='Password*'/>
-                    <CustomButton title="Login" onPress={loginUser}/>
-                    <View style={styles.signUpContainer}>
-                        <Text style={styles.signUpText}>Don’t have an account?</Text>
-                        <View style={styles.signUpSpacer}/>
-                        <Text
-                            style={{...styles.signUpText, ...styles.textGreen}}
-                            onPress={goToSignUp}>Sign Up</Text>
+        <ImageBackground style={styles.imgBackground}
+                         resizeMode='cover'
+                         source={require('../assets/memory.jpg')}>
+            <View style={{flex: 1}}>
+                <View style={{flex: 0.6}}>
+                    <View style={styles.textView}>
+                        <Text style={styles.bigTitle}>
+                            Memory Picker
+                        </Text>
+                    </View>
+                    <View style={styles.container}>
+                        <CoolInput
+                            placeholderTextColor="black"
+                            allowFontScaling={true}
+                            onChangeText={email => setEmail(email)} placeholder='Email*' required/>
+                        <CoolInput
+                            placeholderTextColor="black"
+                            secureTextEntry={true}
+                            allowFontScaling={true}
+                            onChangeText={password => setPassword(password)} placeholder='Password*'/>
+                        <CustomButton title="Login" onPress={loginUser}/>
+                        <View style={styles.signUpContainer}>
+                            <Text style={styles.signUpText}>Don’t have an account?</Text>
+                            <View style={styles.signUpSpacer}/>
+                            <Text
+                                style={{...styles.signUpText, ...styles.textGreen}}
+                                onPress={goToSignUp}>Sign Up</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
-            <View style={{flex: 0.24}}/>
+                <View style={{flex: 0.24}}/>
 
-            <View style={{flex: 0.06}}>
-                <View style={styles.container}>
-                    <View style={styles.signUpContainer}>
-                        <Text style={styles.signUpText}>Forgat your password?</Text>
-                        <View style={styles.signUpSpacer}/>
-                        <Text
-                            style={{...styles.signUpText, ...styles.textRed}}
-                            onPress={resetPass}>Reset Pass</Text>
+                <View style={{flex: 0.06}}>
+                    <View style={styles.container}>
+                        <View style={styles.signUpContainer}>
+                            <Text style={styles.signUpText}>Forgat your password?</Text>
+                            <View style={styles.signUpSpacer}/>
+                            <Text
+                                style={{...styles.signUpText, ...styles.textRed}}
+                                onPress={resetPass}>Reset Pass</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
-        </View>
+            </View>
+        </ImageBackground>
     );
 };
 

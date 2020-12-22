@@ -26,7 +26,6 @@ const CustomButton = ({ onPress, title }) => (
       marginTop:40,
       marginRight:100,
       marginLeft:100,
-      
     },
     appButtonText: {
       fontSize: 18,
