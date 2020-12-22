@@ -7,21 +7,9 @@ import SuccessMessage from '../components/SuccessMessage';
 import {
     StyleSheet,
     View,
-
 } from 'react-native';
 
-
-const styles = StyleSheet.create({
-    Input: {
-        marginVertical: 10,
-        marginLeft: 30,
-        marginRight: 40,
-    },
-    form:
-        {
-            marginVertical: 100,
-        }
-});
+import CoolInput from '../components/CoolInput';
 
 const ForgotPassword = props => {
 
@@ -43,12 +31,9 @@ const ForgotPassword = props => {
 
     return (
         <View>
-            <View style={styles.form}>
-                <Input
-                    leftIcon={
-                        <Icon raised name='mail' type='entypo' color='grey' size={20}/>
-                    }
-                    onChangeText={email => setEmail(email)} style={styles.Input} placeholder='Email*' required/>
+            <View >
+                <CoolInput
+                    onChangeText={email => setEmail(email)}  placeholder='Email*' required/>
                 <CustomButton title="Send" onPress={send}/>
                 <SuccessMessage message={emailMessage}/>
             </View>

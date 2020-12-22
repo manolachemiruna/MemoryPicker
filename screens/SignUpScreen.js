@@ -1,22 +1,16 @@
 import React, {useState} from 'react';
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
-import {Icon, Input, Header} from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import {
     StyleSheet,
     View,
-    Text,
     Alert
 } from 'react-native';
 
+import CoolInput from '../components/CoolInput';
+
 const styles = StyleSheet.create({
-    Input: {
-        padding: 5,
-        borderRadius: 8,
-        marginVertical: 6,
-        borderColor: 'black',
-        borderStyle: 'solid',
-    },
     text: {
         textAlign: "center",
         fontStyle: "italic",
@@ -66,22 +60,16 @@ export default function SignUpScreen() {
 
     return (
         <View>
-            <Header
-                backgroundColor='rgba(123, 239, 178, 1)'
-                size='20'
-                leftComponent={{icon: 'picture', type: 'fontisto', color: '#fff'}}
-                centerComponent={{text: 'Memory Picker', style: {color: '#fff', fontStyle: 'italic', fontSize: 18,}}}
-            />
             <View style={styles.textView}/>
             <View>
-                <Input onChangeText={email => setEmail(email)} style={styles.Input} placeholder='Email*'/>
-                <Input onChangeText={password => setPassword(password)} style={styles.Input} placeholder='Password*'
-                       secureTextEntry={true}>
-                </Input>
-                <Input onChangeText={confirmPassword => setConfirmPassword(confirmPassword)} style={styles.Input}
+                <CoolInput onChangeText={email => setEmail(email)} placeholder='Email*' value={email}/>
+                <CoolInput onChangeText={password => setPassword(password)} placeholder='Password*'
+                       secureTextEntry={true} value={password} >
+                </CoolInput>
+                <CoolInput onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
                        placeholder='Confirm Password*'
-                       secureTextEntry={true}>
-                </Input>
+                       secureTextEntry={true} value={confirmPassword} >
+                </CoolInput>
                 <CustomButton title="Register" onPress={registerUser}/>
             </View>
         </View>
