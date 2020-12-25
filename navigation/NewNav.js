@@ -3,6 +3,7 @@ import {createAppContainer} from "react-navigation";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPassword from "../screens/ForgotPassword";
+import TabBar from './Tabbar';
 
 const Navigator = createStackNavigator({
         Login: {
@@ -29,8 +30,7 @@ const Navigator = createStackNavigator({
         },
         ForgotPass: {
             screen: ForgotPassword,
-            navigationOptions: () => (
-                {
+            navigationOptions: () => ({
                     // headerTitleStyle: {alignSelf: 'center'},
                     headerShown: true,
                     headerStyle: {backgroundColor: 'orange'},
@@ -38,7 +38,15 @@ const Navigator = createStackNavigator({
                 }
             )
         },
-        // Main: {},
+        Main: {
+            screen: TabBar,
+            navigationOptions: () => ({
+                    headerShown: true,
+                    headerStyle: {backgroundColor: 'orange'},
+                    title: 'Forgot Password'
+                }
+            )
+        },
     },
     {
         initialRouteName: 'Login',

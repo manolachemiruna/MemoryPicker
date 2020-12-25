@@ -53,7 +53,7 @@ const ForgotPassword = props => {
     return (
         <ImageBackground style={styles.imgBackground}
                          resizeMode='cover'
-                         source={require('../assets/memory.jpg')}>
+                         source={require('../assets/background.jpg')}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <View style={{...styles.container, width: '90%', marginTop: 50}}>
                     <CoolInput

@@ -97,6 +97,7 @@ const LoginScreen = props => {
 
     const completed = (data) => {
         console.log(data);
+        props.navigation.navigate('Main');
     };
 
     const errorCompleted = (err) => {
@@ -124,7 +125,7 @@ const LoginScreen = props => {
     return (
         <ImageBackground style={styles.imgBackground}
                          resizeMode='cover'
-                         source={require('../assets/memory.jpg')}>
+                         source={require('../assets/background.jpg')}>
             <View style={{flex: 1}}>
                 <View style={{flex: 0.6}}>
                     <View style={styles.textView}>
