@@ -28,6 +28,8 @@ build/
 .gradle
 local.properties
 *.iml
+android/*.hprof
+android/java_pid7620.hprof
 
 # node.js
 #

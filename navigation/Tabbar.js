@@ -3,22 +3,22 @@ import {Icon} from "react-native-elements";
 import {createAppContainer} from "react-navigation";
 import React from "react";
 
-import Work1 from '../screens/mock/Work1';
-import Work2 from '../screens/mock/Work2';
+import HomeScreen from '../screens/HomeScreen';
+import ImagePickerScreen from '../screens/ImagePickerScreen';
 import FindPeople from "../screens/FindPeople";
 import ProfileScreen from "../screens/ProfileScreen";
 
 const tabBar = createBottomTabNavigator({
-        Work1: {
-                screen: Work1,
+        Home: {
+                screen: HomeScreen,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='home' type='entypo' color='black'/>;
                     }
                 })
             },
-        Work2: {
-                screen: Work2,
+        Photo: {
+                screen: ImagePickerScreen,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='camera' type='entypo' color='black'/>;

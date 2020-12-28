@@ -108,7 +108,12 @@ class ProfileScreen extends React.Component {
     }
 
     logout() {
-        Logout.logout(this.props);
+        AsyncStorage.removeItem('userData').then( _ => {
+            Logout.logout(this.props);
+            console.log('User data removed');
+        }).catch(err => {
+            console.log('User data remove error: ', err);
+        });
     }
 
     navig() {

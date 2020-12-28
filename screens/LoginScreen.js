@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     View,
@@ -8,7 +8,7 @@ import {
 import CustomButton from '../components/CustomButton';
 import Login from '../auth/Login'
 import CoolInput from '../components/CoolInput';
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = StyleSheet.create({
         imgBackground: {
@@ -91,12 +91,32 @@ const LoginScreen = props => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        AsyncStorage.getItem('userData').then(data => {
+            const userData = JSON.parse(data);
+            console.log('User data effect: ', userData);
+
+            if (userData !== null) {
+                props.navigation.navigate('Main');
+            }
+
+        }).catch(err => {
+            console.log('Error to fetch data: ', err);
+        });
+    }, []);
+
     function loginUser() {
         Login.login(props, email, password, completed, errorCompleted);
     }
 
     const completed = (data) => {
         console.log(data);
+        const strUserData = JSON.stringify(data.user);
+        AsyncStorage.setItem('userData', strUserData).then(res => {
+            console.log('User data login: ', res);
+        }).catch(err => {
+            console.log('User data login err: ', err);
+        });
         props.navigation.navigate('Main');
     };
 
