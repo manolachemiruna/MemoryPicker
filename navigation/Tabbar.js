@@ -4,9 +4,9 @@ import {createAppContainer} from "react-navigation";
 import React from "react";
 
 import HomeScreen from '../screens/HomeScreen';
-import ImagePickerScreen from '../screens/ImagePickerScreen';
 import FindPeople from "../screens/FindPeople";
 import ProfileScreen from "../screens/ProfileScreen";
+import PhotoNav from './StackPicture';
 
 const tabBar = createBottomTabNavigator({
         Home: {
@@ -18,23 +18,23 @@ const tabBar = createBottomTabNavigator({
                 })
             },
         Photo: {
-                screen: ImagePickerScreen,
+                screen: PhotoNav,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='camera' type='entypo' color='black'/>;
                     }
                 })
             },
-        FindPeople: {
-                screen: FindPeople,
+        Profile: {
+                screen: ProfileScreen,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='person' type='ionicons' color='black'/>;
                     },
                 }),
             },
-        Profile: {
-                screen: ProfileScreen,
+        FindPeople: {
+                screen: FindPeople,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='people' type='ionicons' color='black'/>;

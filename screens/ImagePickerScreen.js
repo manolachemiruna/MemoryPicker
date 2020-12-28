@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, Button, ImageBackground, TextInput, StyleSheet, Image} from "react-native";
+import {View, Text, Button, ImageBackground, TextInput, StyleSheet, Image, TouchableOpacity } from "react-native";
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -88,6 +88,11 @@ const imagePickerScreen = (props) => {
         }
     };
 
+    const goToMap = () => {
+        console.log('Go To MAPS')
+        props.navigation.navigate('ShowMap');
+    }
+
     return <View style={styles.containerScreen}>
         <Spinner
             visible={showSpinner}
@@ -101,7 +106,9 @@ const imagePickerScreen = (props) => {
             <TextInput style={{...styles.input, ...styles.element}} value={imageTitle} onChangeText={setImageTitle}/>
         </View>
         <View style={styles.containerElement}>
-            <Image style={styles.locationButton} source={require('../assets/locationButton.png')}/>
+            <TouchableOpacity activeOpacity={0.5} onPress={goToMap}>
+                <Image style={styles.locationButton} source={require('../assets/locationButton.png')} />
+            </TouchableOpacity>
         </View>
         <View style={styles.containerElement}>
             <CustomButton title={ !pictureMade ? 'Open Camera' : 'Post' } onPress={buttonTappedHandler}/>

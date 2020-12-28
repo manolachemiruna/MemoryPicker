@@ -1,4 +1,4 @@
-import {createStackNavigator, HeaderTitle} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from "react-navigation";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
@@ -41,9 +41,7 @@ const Navigator = createStackNavigator({
         Main: {
             screen: TabBar,
             navigationOptions: () => ({
-                    headerShown: true,
-                    headerStyle: {backgroundColor: 'orange'},
-                    title: 'Forgot Password'
+                    headerShown: false,
                 }
             )
         },
