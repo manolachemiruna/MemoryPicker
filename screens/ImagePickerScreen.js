@@ -20,8 +20,8 @@ const imagePickerScreen = (props) => {
 
     const openCamera = () => {
         ImagePicker.openCamera({
-            width: 360,
-            height: 200,
+            width: 400,
+            height: 540,
             cropping: true,
         }).then(image => {
             console.log(image.path);
