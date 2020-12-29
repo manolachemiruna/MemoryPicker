@@ -165,7 +165,7 @@ const LoginScreen = props => {
                             onChangeText={password => setPassword(password)} placeholder='Password*'/>
                         <CustomButton title="Login" onPress={loginUser}/>
                         <View style={styles.signUpContainer}>
-                            <Text style={styles.signUpText}>Don’t have an account?</Text>
+                            <Text style={styles.signUpText}>Don’t you have an account?</Text>
                             <View style={styles.signUpSpacer}/>
                             <Text
                                 style={{...styles.signUpText, ...styles.textGreen}}
@@ -179,7 +179,7 @@ const LoginScreen = props => {
                 <View style={{flex: 0.06}}>
                     <View style={styles.container}>
                         <View style={styles.signUpContainer}>
-                            <Text style={styles.signUpText}>Forgat your password?</Text>
+                            <Text style={styles.signUpText}>Forgot your password?</Text>
                             <View style={styles.signUpSpacer}/>
                             <Text
                                 style={{...styles.signUpText, ...styles.textRed}}

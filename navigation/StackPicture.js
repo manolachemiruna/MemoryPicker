@@ -12,7 +12,7 @@ const stackPicture = createStackNavigator({
             navigationOptions: () => ({
                 headerShown: true,
                 headerStyle: {backgroundColor: 'orange'},
-                title: 'Forgot Password',
+                title: 'Take a picture',
             })
         },
         ShowMap: {
@@ -20,7 +20,7 @@ const stackPicture = createStackNavigator({
             navigationOptions: () => ({
                 headerShown: true,
                 headerStyle: {backgroundColor: 'orange'},
-                title: 'Forgot Password'
+                title: 'Show map'
             })
         }
     },

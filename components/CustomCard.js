@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Card, ListItem, Icon} from 'react-native-elements';
+import TouchableScale from 'react-native-touchable-scale';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   StyleSheet,
   Text,
@@ -7,9 +9,18 @@ import {
   ScrollView,
 
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const CustomCard = ({show,name,list,message}) =>{
-      
+
+const CustomCard = ({show,name,list,message,props}) =>{
+     
+  const [email,setEmail]=useState('');
+function navigate()
+{
+   console.log('ceva');
+   console.log(email);
+   props.navigation.navigate('UserProfile');
+}
        if(show=='ceva' && message=='')
        {
          return <ScrollView>
@@ -18,7 +29,20 @@ const CustomCard = ({show,name,list,message}) =>{
          <View>
             {
             list.map((item, i) => (
-            <ListItem key={i} bottomDivider>
+            <ListItem key={i} topDivider bottomDivider
+            Component={TouchableScale}
+            friction={70} //
+            tension={80} // These props are passed to the parent component (here TouchableScale)
+            activeScale={0.55} //
+            linearGradientProps={{
+              marginBottom:10,
+              colors: ['#FFF233', '#F44336'],
+              start: { x: 0.9, y: 0 },
+              end: { x: 0.2, y: 0 },
+            }}
+            ViewComponent={LinearGradient}
+            onPress={() =>{AsyncStorage.setItem('email',item.email);props.navigation.navigate('UserProfile');}}
+            >
                  <Icon raised name='user' type='ant-design'/>
                 <ListItem.Content>
                 <ListItem.Title>User: {item.email}</ListItem.Title>
@@ -57,12 +81,12 @@ const CustomCard = ({show,name,list,message}) =>{
         fontStyle:'italic',
         elevation: 40,
         fontSize: 20,
-        backgroundColor:'rgba(41, 241, 195, 1)',
+        backgroundColor:'rgba(250, 190, 88, 1)',
         borderRadius:10,
         fontWeight: "bold",
-        marginBottom:10,
+        marginBottom:20,
         marginTop:20,
-        marginLeft:20,
+        marginLeft:5,
     },
     text:{
         textAlign:"center",

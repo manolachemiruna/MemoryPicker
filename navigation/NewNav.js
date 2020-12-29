@@ -4,6 +4,7 @@ import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPassword from "../screens/ForgotPassword";
 import TabBar from './Tabbar';
+import UserScreen from '../screens/UserScreen';
 
 const Navigator = createStackNavigator({
         Login: {
@@ -38,6 +39,18 @@ const Navigator = createStackNavigator({
                 }
             )
         },
+        UserProfile:{
+            screen:UserScreen,
+            navigationOptions: () => ({
+                // headerTitleStyle: {alignSelf: 'center'},
+                headerShown: true,
+                headerStyle: {backgroundColor: 'orange'},
+                title: 'User Profile'
+            }
+        )
+            
+        },
+
         Main: {
             screen: TabBar,
             navigationOptions: () => ({

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import CustomButton from '../components/CustomButton'
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
 import ChangeProfileType from '../functions/ChangeProfileType.js';
@@ -13,6 +12,7 @@ import {
     View,
     Text,
     Switch,
+    Image,
 } from 'react-native';
 
 
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     picture:
         {
             alignSelf: "center",
-            marginBottom: 50,
-            marginTop: 70,
+            marginBottom: 20,
+            marginTop: 50,
         }
 });
 
@@ -155,7 +155,7 @@ class ProfileScreen extends React.Component {
                         onPress: this.logout
                     }}
                 />
-                <Text style={styles.picture}>Here will be a profile picture!</Text>
+                 <Image style={styles.picture} source={require('../assets/logo.jpg')} />
                 <SuccessMessage message={this.state.data}/>
                 <Switch
                     style={styles.switch}
