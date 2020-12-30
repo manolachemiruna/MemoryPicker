@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image } from "react-native";
+import {Card,Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import { ScrollView } from "react-native-gesture-handler";
+import LinearGradient from 'react-native-linear-gradient';
 
 const firebaseRef = firestore();
+let email;
 
 const UserScreen = (props) => {
 
@@ -23,6 +27,8 @@ const UserScreen = (props) => {
 
     const fetchPicutresFromServer = () => {
         AsyncStorage.getItem('email').then(data =>
+        {
+            email=data;
             firestore()
             .collection('users')
             .where('email','==',data)
@@ -67,19 +73,33 @@ const UserScreen = (props) => {
                     console.log('Error fetch data: ', err);
                 })
             });
-                }),
-        );
+                })
+               
+            });
         };
 
-    return <View style={styles.container}>
-        <View style={styles.containerList}>
+    return <LinearGradient 
+    colors={['rgba(253, 227, 167, 1)','rgba(252, 214, 112, 1)', 'rgba(250, 190, 88, 1)', 'rgba(235, 149, 50, 1)','rgba(248, 148, 6, 1)','rgba(230, 126, 34, 1)']} 
+        style={styles.gradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        >   
+        <View style={styles.containerList}>     
+        
+        <Card containerStyle={styles.card}>
+        <View style={styles.card}>
+           <Icon  color='rgba(232, 126, 4, 1)' raised name='user' type='ant-design'/>
+            <Text style={styles.cardText}>{email}</Text>
+        </View>
+        </Card>
             <FlatList
                 data={listOfPictures}
                 renderItem={(props) => (<ListItem elements={props.item} />)}
                 keyExtractor={data => data[0].downloadURL}
             />
+        
         </View>
-    </View>
+        </LinearGradient>
 };
 
 const ListItem = ({elements}) => {
@@ -90,19 +110,23 @@ const ListItem = ({elements}) => {
         const element1 = elements[0];
         const element2 = elements[1];
 
-        return <View style={styles.containerElement}>
+        return <ScrollView>
+         <View style={styles.containerElement}>
             <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
             <View style={styles.spacer} />
             <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
-        </View>;
+        </View>
+        </ScrollView>;
     } else {
         const element1 = elements[0];
 
-        return <View style={styles.containerElement}>
+        return <ScrollView>
+        <View style={styles.containerElement}>
             <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
             <View style={styles.spacer} />
             <View style={{...styles.imagePreview, ...styles.imageTwo}} />
-        </View>;
+        </View>
+        </ScrollView>;
     }
 }
 
@@ -119,8 +143,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: 'gold',
         alignItems: 'center',
+       // backgroundColor:'rgba(250, 190, 88, 1)',
     },
     containerElement: {
         marginTop: 10,
@@ -137,6 +161,33 @@ const styles = StyleSheet.create({
     },
     containerList: {
         marginBottom: 20
+    },
+    card:
+    {
+        opacity:0.8,
+        color:'rgba(238, 238, 238, 1)',
+        justifyContent: 'center',
+        flexDirection:'row',
+        alignItems:'center',
+        alignContent:'center',
+        borderRadius:8,
+        marginBottom:15,
+        height:80,
+        marginTop:10,
+    },
+    cardText:
+    {
+        fontWeight:'bold',
+        color:'black',
+    },
+    icons:
+    {
+        backgroundColor:'rgba(253, 227, 167, 1)',
+    },
+    gradient:
+    {
+        flex:1,
+        alignItems: 'center',
     }
 });
 

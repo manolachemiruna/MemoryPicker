@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image,ScrollView } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
-
+import LinearGradient from 'react-native-linear-gradient';
 const firebaseRef = firestore();
 
 const homeScreen = (props) => {
@@ -61,7 +61,11 @@ const homeScreen = (props) => {
         });
     }
 
-    return <View style={styles.container}>
+    return <LinearGradient style={styles.container}
+            colors={['rgba(254, 250, 212, 1)','rgba(255, 255, 204, 1)','rgba(255, 246, 143, 1)','rgba(254, 241, 96, 1)','rgba(245, 229, 27, 1)','rgba(247, 202, 24, 1)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+           >
         <View style={styles.containerList}>
             <FlatList
                 data={listOfPictures}
@@ -69,7 +73,7 @@ const homeScreen = (props) => {
                 keyExtractor={data => data[0].downloadURL}
             />
         </View>
-    </View>
+    </LinearGradient>
 };
 
 const ListItem = ({elements}) => {
@@ -116,7 +120,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: 'gold',
         alignItems: 'center',
     },
     containerElement: {

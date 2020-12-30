@@ -18,9 +18,8 @@ const CustomCard = ({show,name,list,message,props}) =>{
 
        if(show=='ceva' && message=='')
        {
-         return <ScrollView>
+         return <ScrollView >
           <Card>
-         <Card.Title style={styles.title}>{name}</Card.Title>
          <View>
             {
             list.map((item, i) => (
@@ -102,6 +101,10 @@ const CustomCard = ({show,name,list,message,props}) =>{
         marginBottom:10,
         marginTop:20,
         marginLeft:20,
+    },
+    card:
+    {
+      opacity:0.5,
     }
   });
 export default CustomCard;

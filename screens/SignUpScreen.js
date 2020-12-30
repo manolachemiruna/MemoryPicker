@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import CustomButton from '../components/CustomButton'
 import Register from '../auth/Register';
-import {Input} from 'react-native-elements';
 import {
     StyleSheet,
     View,

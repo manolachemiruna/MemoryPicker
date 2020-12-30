@@ -11,6 +11,7 @@ import {
     View,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import { onChange } from 'react-native-reanimated';
 
 
 const styles = StyleSheet.create({
@@ -61,7 +62,7 @@ const FindPeople = props => {
     function find() {
 
         const e = email.replace(/\s/g, '');
-        const regex = new RegExp("^" + e + ".*");
+
         console.log("email" + e);
         firestore()
             .collection('users')
@@ -104,7 +105,7 @@ const FindPeople = props => {
             <Header
                     backgroundColor='rgba(250, 190, 88, 1)'
                     centerComponent={{
-                        text: 'Memory Picker',
+                        text: 'Find people',
                         style: {color: '#fff', fontStyle: 'italic', fontSize: 18,}
                     }}
                     rightComponent={{
@@ -120,10 +121,10 @@ const FindPeople = props => {
                 <DelayInput
                     onChangeText={email => {
                         setEmail(email);
-                        find()
+                        find();
                     }} placeholder="Search*"
                     style={styles.search}
-                    delayTimeout={600}
+                    delayTimeout={100}
                 />
             </View>
 
