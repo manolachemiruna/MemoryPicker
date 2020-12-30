@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image } from "react-native";
+import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image,ScrollView } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 
@@ -80,19 +80,23 @@ const ListItem = ({elements}) => {
         const element1 = elements[0];
         const element2 = elements[1];
 
-        return <View style={styles.containerElement}>
+        return <ScrollView>
+         <View style={styles.containerElement}>
             <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
             <View style={styles.spacer} />
             <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
-        </View>;
+        </View>
+        </ScrollView>;
     } else {
         const element1 = elements[0];
 
-        return <View style={styles.containerElement}>
+        return <ScrollView>
+         <View style={styles.containerElement}>
             <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
             <View style={styles.spacer} />
             <View style={{...styles.imagePreview, ...styles.imageTwo}} />
-        </View>;
+        </View>
+        </ScrollView>;
     }
 }
 
@@ -100,6 +104,9 @@ const styles = StyleSheet.create({
     imagePreview: {
         height: 200,
         width: 170,
+        marginTop:20,
+        marginLeft:10,
+        marginRight:10,
     },
     imageOne: {
         alignSelf: 'flex-start',

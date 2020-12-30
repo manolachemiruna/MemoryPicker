@@ -7,6 +7,7 @@ import {
   Text,
   View,
   ScrollView,
+  Alert,
 
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,13 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const CustomCard = ({show,name,list,message,props}) =>{
      
-  const [email,setEmail]=useState('');
-function navigate()
-{
-   console.log('ceva');
-   console.log(email);
-   props.navigation.navigate('UserProfile');
-}
+
        if(show=='ceva' && message=='')
        {
          return <ScrollView>
@@ -41,7 +36,17 @@ function navigate()
               end: { x: 0.2, y: 0 },
             }}
             ViewComponent={LinearGradient}
-            onPress={() =>{AsyncStorage.setItem('email',item.email);props.navigation.navigate('UserProfile');}}
+            onPress={() =>{AsyncStorage.setItem('email',item.email);
+            if(item.profile=='public')props.navigation.navigate('UserProfile');
+            else Alert.alert(
+              "Private profile",
+              'This user has a private profile!',
+              [
+                  {text: "OK", onPress: () => console.log("OK Pressed")}
+              ],
+              {cancelable: false}
+          );
+          }}
             >
                  <Icon raised name='user' type='ant-design'/>
                 <ListItem.Content>
