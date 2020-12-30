@@ -1,9 +1,7 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {View, StyleSheet, PermissionsAndroid, Button, TouchableOpacity, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
-
-import CustomButton from '../components/CustomButton';
 
 const locationPicker = (props) => {
 
@@ -77,6 +75,10 @@ const locationPicker = (props) => {
         }
       };
 
+      const pickCurrentMarkedLocation = () => {
+          props.navigation.navigate('ImagePicker', {markerPosition: markerPosotion});
+      }
+
     return <View style={styles.container}> 
             <MapView
                 region={currentRegion}
@@ -92,7 +94,7 @@ const locationPicker = (props) => {
                      </Marker>
             </MapView>
             <View style={styles.buttonsContainer}>
-                <CustomCoolButton title={"Pick Location"} />
+                <CustomCoolButton title={"Pick Location"} onPress={pickCurrentMarkedLocation} />
                 <CustomCoolButton title={"Focus Marker"} onPress={resetMarkerInCenter} />
                 <CustomCoolButton title={"Focus Location"} onPress={findCurrentLocation} />
             </View>

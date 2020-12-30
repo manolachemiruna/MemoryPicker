@@ -10,7 +10,7 @@ const stackPicture = createStackNavigator({
         ImagePicker: {
             screen: ImagePicker,
             navigationOptions: () => ({
-                headerShown: true,
+                headerShown: false,
                 headerStyle: {backgroundColor: 'orange'},
                 title: 'Take a picture',
             })

@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {View, Text, Button, ImageBackground, TextInput, StyleSheet, Image, TouchableOpacity } from "react-native";
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import Spinner from "react-native-loading-spinner-overlay";
+import LinearGradient from 'react-native-linear-gradient';
 
 import {placeHolderImage} from '../lib/Constants';
 import CustomButton from "../components/CustomButton";
@@ -60,9 +61,12 @@ const imagePickerScreen = (props) => {
             reference.getDownloadURL().then(url => {
                 // setShowSpinner(false);
                 console.log('Download url: ', url);
+                const markerPosition = props.navigation.getParam('markerPosition', null);
+                // console.log('Params: ', markerPosition);
                 fireStoreRef.collection(`users/${userdata.uid}/pictures`).add({
                     downloadURL: url,
-                    title: imageTitle !== '' ? imageTitle : null
+                    title: imageTitle !== '' ? imageTitle : null,
+                    markerPosition: markerPosition
                 }).then(_ => {
                     setShowSpinner(false);
                     console.log('Added Success');
@@ -93,27 +97,35 @@ const imagePickerScreen = (props) => {
         props.navigation.navigate('ShowMap');
     }
 
-    return <View style={styles.containerScreen}>
+    return <LinearGradient style={styles.containerScreen}
+                colors={['rgba(254, 250, 212, 1)','rgba(255, 255, 204, 1)','rgba(255, 246, 143, 1)','rgba(254, 241, 96, 1)','rgba(245, 229, 27, 1)','rgba(247, 202, 24, 1)']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}>
         <Spinner
             visible={showSpinner}
             textContent={'Loading...'}
             textStyle={styles.spinnerTextStyle}
         />
-        <View style={styles.containerElement}>
-            <ImageBackground source={{uri: imagePath}} style={styles.imagePreview}/>
+        <View style={styles.contentView}>
+            <View style={styles.containerElement}>
+                <ImageBackground source={{uri: imagePath}} style={styles.imagePreview}/>
+            </View>
+            <View style={styles.containerElement}>
+                <TextInput style={{...styles.input, ...styles.element}} value={imageTitle} onChangeText={setImageTitle}/>
+            </View>
+            <View style={styles.containerElement}>
+                <TouchableOpacity activeOpacity={0.5} onPress={goToMap}>
+                    {!props.navigation.getParam('markerPosition', null) ? 
+                    <Image style={styles.locationButton} source={require('../assets/locationButton.png')} />
+                        :
+                    <Image style={styles.locationButton} source={require('../assets/location-map-flat.png')} />}
+                </TouchableOpacity>
+            </View>
+            <View style={styles.containerElement}>
+                <CustomButton title={ !pictureMade ? 'Open Camera' : 'Post' } onPress={buttonTappedHandler}/>
+            </View>
         </View>
-        <View style={styles.containerElement}>
-            <TextInput style={{...styles.input, ...styles.element}} value={imageTitle} onChangeText={setImageTitle}/>
-        </View>
-        <View style={styles.containerElement}>
-            <TouchableOpacity activeOpacity={0.5} onPress={goToMap}>
-                <Image style={styles.locationButton} source={require('../assets/locationButton.png')} />
-            </TouchableOpacity>
-        </View>
-        <View style={styles.containerElement}>
-            <CustomButton title={ !pictureMade ? 'Open Camera' : 'Post' } onPress={buttonTappedHandler}/>
-        </View>
-    </View>
+    </LinearGradient>
 };
 
 const styles = StyleSheet.create({
@@ -135,7 +147,8 @@ const styles = StyleSheet.create({
     },
     containerScreen: {
         marginTop: 20,
-        marginBottom: 20,
+        // marginBottom: 20,
+        flex: 1,
         justifyContent: 'center'
     },
     locationButton: {
@@ -148,6 +161,11 @@ const styles = StyleSheet.create({
     },
     element: {
         width: '90%'
+    },
+    contentView: {
+        // marginTop: 10
+        justifyContent: 'center'
+        // alignItems: 'center',
     }
 });
 
