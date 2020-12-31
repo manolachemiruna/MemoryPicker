@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image,ScrollView } from "react-native";
+import {View, FlatList, TouchableHighlight, StyleSheet, Image,ScrollView } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
-import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
+import firestore from '@react-native-firebase/firestore';
 const firebaseRef = firestore();
 
 const homeScreen = (props) => {
@@ -20,6 +20,12 @@ const homeScreen = (props) => {
         };
     }, []);
 
+    const showFullImage = (image) => {
+        if (!!image) {
+            props.navigation.navigate('FullImage', { imageData: image }); 
+        }
+    }
+
     const fetchPicutresFromServer = () => {
         AsyncStorage.getItem('userData').then(data => {
             const userData = JSON.parse(data);
@@ -28,7 +34,7 @@ const homeScreen = (props) => {
                 .then(snapshot => {
                     const dataSnap = [];
                     snapshot.forEach(element => {
-                        dataSnap.push(element.data());
+                        dataSnap.push({...element.data(), pid: element.id});
                     });
                     console.log('Data from server:', dataSnap);
 
@@ -69,14 +75,14 @@ const homeScreen = (props) => {
         <View style={styles.containerList}>
             <FlatList
                 data={listOfPictures}
-                renderItem={(props) => (<ListItem elements={props.item} />)}
-                keyExtractor={data => data[0].downloadURL}
+                renderItem={(props) => (<ListItem elements={props.item} action={showFullImage} />)}
+                keyExtractor={data => data[0].pid}
             />
         </View>
     </LinearGradient>
 };
 
-const ListItem = ({elements}) => {
+const ListItem = ({elements, action}) => {
     const isLength2 = elements.length === 2;
 
     if (isLength2) {
@@ -86,9 +92,19 @@ const ListItem = ({elements}) => {
 
         return <ScrollView>
          <View style={styles.containerElement}>
-            <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => { action(element1); }}>
+                <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            </TouchableHighlight>
             <View style={styles.spacer} />
-            <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
+            <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => { action(element2); }}>
+                <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
+            </TouchableHighlight>
         </View>
         </ScrollView>;
     } else {
@@ -96,7 +112,12 @@ const ListItem = ({elements}) => {
 
         return <ScrollView>
          <View style={styles.containerElement}>
-            <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            <TouchableHighlight
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={() => { action(element1); }}>
+                <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            </TouchableHighlight>
             <View style={styles.spacer} />
             <View style={{...styles.imagePreview, ...styles.imageTwo}} />
         </View>

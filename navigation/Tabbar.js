@@ -3,14 +3,15 @@ import {Icon} from "react-native-elements";
 import {createAppContainer} from "react-navigation";
 import React from "react";
 
-import HomeScreen from '../screens/HomeScreen';
+
 import FindPeople from "../screens/FindPeople";
 import ProfileScreen from "../screens/ProfileScreen";
 import PhotoNav from './StackPicture';
+import ProfileStackNav from './ProfileStackNav';
 
 const tabBar = createBottomTabNavigator({
         Home: {
-                screen: HomeScreen,
+                screen: ProfileStackNav,
                 navigationOptions: () => ({
                     tabBarIcon: () => {
                         return <Icon raised name='home' type='entypo' color='black'/>;

@@ -3,6 +3,8 @@ import {View, StyleSheet, PermissionsAndroid, Button, TouchableOpacity, Text} fr
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 
+import CustomCoolButton from '../components/CustomCoolButton';
+
 const locationPicker = (props) => {
 
     const [currentRegion, setCurrentRegion] = useState({
@@ -101,14 +103,6 @@ const locationPicker = (props) => {
         </View>
 };
 
-const CustomCoolButton = (props) => {
-    return <View style={styles.button} >
-        <TouchableOpacity onPress={props.onPress}>
-            <Text style={styles.innerText}>{props.title}</Text>
-        </TouchableOpacity>
-    </View>
-}
-
 const styles = StyleSheet.create({
     container: {
         ...StyleSheet.absoluteFillObject,
@@ -122,22 +116,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginBottom: 20,
         flexDirection: 'row'
-      },
-      button: {
-          paddingTop: 10,
-          paddingBottom: 10,
-          borderRadius: 20,
-          backgroundColor: "rgba(123, 239, 178, 1)",
-          marginLeft: 10,
-          marginRight: 10
-      },
-      innerText: {
-          padding: 3,
-          paddingLeft: 13,
-          paddingRight: 13,
-          color: '#fff',
-          fontWeight: 'bold',
-          fontSize: 14
       },
 });
 

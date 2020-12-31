@@ -1,5 +1,4 @@
 import React from 'react';
-// import {} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from "react-navigation";
 
