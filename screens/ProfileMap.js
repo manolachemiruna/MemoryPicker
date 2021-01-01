@@ -13,7 +13,6 @@ const profileMap = (props) => {
     
     const [markerPosotion, setMarkerPosition] = useState(currentRegion);
 
-
     return <View style={styles.container}> 
             <MapView
                 region={currentRegion}

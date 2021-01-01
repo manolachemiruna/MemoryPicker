@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import {View, Text, Button, ImageBackground, TextInput, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {View, ImageBackground, TextInput, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -70,6 +70,7 @@ const imagePickerScreen = (props) => {
                 }).then(_ => {
                     setShowSpinner(false);
                     console.log('Added Success');
+                    clearScreen();
                 }).catch(err => {
                     console.log('Error to load picture: ', err);
                     setShowSpinner(false);
@@ -83,6 +84,30 @@ const imagePickerScreen = (props) => {
             console.log('uploading image error => ', e);
         });
     }
+
+    const clearScreen = () => {
+
+        console.log(props.navigation.state);
+
+        setImagePath(placeHolderImage);
+        setImageTitle('');
+        setPictureMade(false);
+        props.navigation.setParams({ markerPosition: null });
+
+        clearCompleted();
+        
+    }
+
+    const clearCompleted = () => {
+        Alert.alert(
+            'Post Image',
+            'Your image has been posted. Check your home screen',
+            [
+                {text: "OK", onPress: () => console.log("OK Pressed")}
+            ],
+            {cancelable: false}
+        );
+    };
 
     const buttonTappedHandler = () => {
         if (!pictureMade) {
