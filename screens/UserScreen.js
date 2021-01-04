@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, Button, FlatList, ImageBackground, StyleSheet, Image } from "react-native";
+import {View,Text, FlatList, TouchableHighlight, StyleSheet, Image,ScrollView } from "react-native";
 import {Card,Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import firestore from '@react-native-firebase/firestore';
-import { ScrollView } from "react-native-gesture-handler";
 import LinearGradient from 'react-native-linear-gradient';
-
+import firestore from '@react-native-firebase/firestore';
 const firebaseRef = firestore();
 let email;
 
-const UserScreen = (props) => {
+const homeScreen = (props) => {
 
     const [listOfPictures, setListOfPictures] = useState([]);
     const [userId,setUserId]=useState('');
@@ -24,6 +22,12 @@ const UserScreen = (props) => {
             subscriptionWillFocus.remove();
         };
     }, []);
+
+    const showFullImage = (image) => {
+        if (!!image) {
+            props.navigation.navigate('FullImageUser', { imageData: image }); 
+        }
+    }
 
     const fetchPicutresFromServer = () => {
         AsyncStorage.getItem('email').then(data =>
@@ -79,11 +83,11 @@ const UserScreen = (props) => {
         };
 
     return <LinearGradient 
-    colors={['rgba(253, 227, 167, 1)','rgba(252, 214, 112, 1)', 'rgba(250, 190, 88, 1)', 'rgba(235, 149, 50, 1)','rgba(248, 148, 6, 1)','rgba(230, 126, 34, 1)']} 
+        colors={['rgba(253, 227, 167, 1)','rgba(252, 214, 112, 1)', 'rgba(250, 190, 88, 1)', 'rgba(235, 149, 50, 1)','rgba(248, 148, 6, 1)','rgba(230, 126, 34, 1)']} 
         style={styles.gradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        >   
+        >  
         <View style={styles.containerList}>     
         
         <Card containerStyle={styles.card}>
@@ -94,15 +98,14 @@ const UserScreen = (props) => {
         </Card>
             <FlatList
                 data={listOfPictures}
-                renderItem={(props) => (<ListItem elements={props.item} />)}
-                keyExtractor={data => data[0].downloadURL}
+                renderItem={(props) => (<ListItem elements={props.item} action={showFullImage} />)}
+                keyExtractor={data => data[0].pid}
             />
-        
         </View>
-        </LinearGradient>
+    </LinearGradient>
 };
 
-const ListItem = ({elements}) => {
+const ListItem = ({elements, action}) => {
     const isLength2 = elements.length === 2;
 
     if (isLength2) {
@@ -112,17 +115,32 @@ const ListItem = ({elements}) => {
 
         return <ScrollView>
          <View style={styles.containerElement}>
-            <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => { action(element1); }}>
+                <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            </TouchableHighlight>
             <View style={styles.spacer} />
-            <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
+            <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => { action(element2); }}>
+                <Image source={{uri: element2.downloadURL}} style={{...styles.imagePreview, ...styles.imageTwo}}/>
+            </TouchableHighlight>
         </View>
         </ScrollView>;
     } else {
         const element1 = elements[0];
 
         return <ScrollView>
-        <View style={styles.containerElement}>
-            <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+         <View style={styles.containerElement}>
+            <TouchableHighlight
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={() => { action(element1); }}>
+                <Image source={{uri: element1.downloadURL}} style={{...styles.imagePreview, ...styles.imageOne}}/>
+            </TouchableHighlight>
             <View style={styles.spacer} />
             <View style={{...styles.imagePreview, ...styles.imageTwo}} />
         </View>
@@ -190,5 +208,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 });
-
-export default UserScreen;
+export default homeScreen;

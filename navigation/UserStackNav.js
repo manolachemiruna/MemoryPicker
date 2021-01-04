@@ -2,28 +2,26 @@ import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from "react-navigation";
 
-import ProfileMap from '../screens/ProfileMap';
-import HomeScreen from '../screens/HomeScreen';
-import FullImage from '../screens/FullImage';
+import ProfileMapUser from '../screens/ProfileMapUser';
 import FullImageUser from '../screens/FullImageUser';
-const stackPicture = createStackNavigator({
-    ProfileHome: {
-        screen: HomeScreen,
+const stackPictureUser = createStackNavigator({
+    UserProfile: {
+        screen: UserScreen,
         navigationOptions: () => ({
             headerShown: false,
             headerStyle: {backgroundColor: 'orange'},
         })
     },
-    ProfileMap: {
-        screen: ProfileMap,
+    ProfileMapUser: {
+        screen: ProfileMapUser,
         navigationOptions: () => ({
             headerShown: true,
             headerStyle: {backgroundColor: 'orange'},
             title: 'Show map'
         })
     },
-    FullImage: {
-        screen: FullImage,
+    FullImageUser: {
+        screen: FullImageUser,
         navigationOptions: () => ({
             headerShown: true,
             headerStyle: {backgroundColor: 'orange'},
@@ -32,8 +30,8 @@ const stackPicture = createStackNavigator({
     },
 },
 {
-    initialRouteName: 'ProfileHome',
+    initialRouteName: 'UserProfile',
 }
 );
 
-export default createAppContainer(stackPicture);
+export default createAppContainer(stackPictureUser);

@@ -5,7 +5,8 @@ import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPassword from "../screens/ForgotPassword";
 import TabBar from './Tabbar';
 import UserScreen from '../screens/UserScreen';
-
+import ProfileMapUser from '../screens/ProfileMapUser';
+import FullImageUser from '../screens/FullImageUser';
 const Navigator = createStackNavigator({
         Login: {
             screen: LoginScreen,
@@ -49,6 +50,22 @@ const Navigator = createStackNavigator({
             }
         )
             
+        },
+        FullImageUser: {
+            screen: FullImageUser,
+            navigationOptions: () => ({
+                headerShown: true,
+                headerStyle: {backgroundColor: 'orange'},
+                title: 'Full image'
+            })
+        },
+        ProfileMapUser: {
+            screen: ProfileMapUser,
+            navigationOptions: () => ({
+                headerShown: true,
+                headerStyle: {backgroundColor: 'orange'},
+                title: 'Show map'
+            })
         },
 
         Main: {
