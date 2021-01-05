@@ -13,10 +13,10 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const CustomCard = ({show,name,list,message,props}) =>{
+const CustomCard = ({name,list,props}) =>{
      
 
-       if(show=='ceva' && message=='')
+       if(list.length !== 0)
        {
          return <ScrollView >
           <Card>
@@ -59,21 +59,16 @@ const CustomCard = ({show,name,list,message,props}) =>{
          </ScrollView>
            
        }
-       else if(show!='' && message!='')
+       else
        {
            return <ScrollView>
             <Card>
         <Card.Title style={styles.title}>{name}</Card.Title>
         <View>
-            <Text style={styles.text}>{message}</Text>
+            <Text style={styles.text}>{"No user found for this search"}</Text>
         </View>
         </Card>
         </ScrollView>
-       }
-
-       else
-       {
-           return <Text></Text>
        }
       
 }

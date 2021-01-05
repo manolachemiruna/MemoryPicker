@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import {Icon,Header} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import CustomCard from '../components/CustomCard';
@@ -6,7 +6,7 @@ import DelayInput from "react-native-debounce-input";
 import Logout from '../auth/Logout';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
-
+    Input,
     StyleSheet,
     View,
 } from 'react-native';
@@ -53,11 +53,13 @@ const styles = StyleSheet.create({
 });
 const FindPeople = props => {
 
-    const [users, setUsers] = useState([]);
     const [email, setEmail] = useState('');
     const [show, setShow] = useState('');
-    const [message, setMessage] = useState('');
     const [u, setU] = useState([]);
+
+    useEffect(() => {
+        find();
+    }, []);
 
     function find() {
 
@@ -68,25 +70,14 @@ const FindPeople = props => {
             .collection('users')
             .get()
             .then(snapshot => {
+                const someUsers = [];
                 snapshot
                     .forEach(doc => {
-                        users.push(doc.data());
+                        someUsers.push(doc.data());
                     });
                 setShow('ceva');
-                setU(users.filter(user => user.email.includes(e)));
+                setU(someUsers);
                 console.log(u);
-                setMessage('');
-                setUsers([]);
-                if (email == '') {
-                    setShow('');
-                    setMessage('');
-                    setU([]);
-                    setUsers([]);
-                }
-                if (u.length == 0) {
-                    setMessage('There is no match for your search');
-                    setUsers([]);
-                }
             });
 
     }
@@ -121,14 +112,14 @@ const FindPeople = props => {
                 <DelayInput
                     onChangeText={email => {
                         setEmail(email);
-                        find();
                     }} placeholder="Search*"
                     style={styles.search}
-                    delayTimeout={100}
+                    delayTimeout={50}
+                    value={email}
                 />
             </View>
 
-            <CustomCard show={show} name='People that can match your search' list={u} message={message} props={props}/>
+            <CustomCard show={show} name='People that can match your search' list={u.filter(user => user.email.includes(email))} props={props}/>
         </ScrollView>
     );
 }
